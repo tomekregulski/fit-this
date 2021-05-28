@@ -29,13 +29,27 @@ router.put('/:id', ({ params, body}, res) => {
       { _id: params.id },
       { $push: {exercises: body } },
       { upsert: true, useFindandModify: false},
-      function (error, success) {
-        if (error) {
-            console.log(error);
-        } else {
-            console.log(success);
-        }
-    }
-)});
+  )
+   .then((dbWorkout) => res.json(dbWorkout))
+  .catch((err) => res.status(400).json(err))
+  });
+
+router.get('/range', (req, res) =>
+  Workout.aggregate(
+    [
+      {
+        $addFields: {
+          totalDuration: {
+            $sum: '$exercises.duration',
+          },
+          combinedWeight: {
+            $sum: '$exercises.weight',
+          },
+        },
+      },
+    ],
+    (err, data) => (err ? res.send(err) : res.json(data))
+  )
+);
 
 module.exports = router;
