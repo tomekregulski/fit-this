@@ -7,7 +7,7 @@
 - [License](#license)
 
 ![screenshot-homepage](public/images/demo1.png)
-![screenshot-dashboard](public/assets/demo2.png)
+![screenshot-dashboard](public/images/demo2.png)
 
 # Description
 
